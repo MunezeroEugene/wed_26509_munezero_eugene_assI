@@ -1,3 +1,9 @@
+ID: 26509
+
+Names: Munezero Eugene
+
+## Concentration: Information Technology
+
 ### Problem Statement: Library Management System
 
 The task is to design and implement a **Library Management System** that tracks the books available in the library, their authors, library members, and transactions (borrowed books).
@@ -116,5 +122,45 @@ VALUES
 ```sql
 UPDATE Books SET AvailableCopies = AvailableCopies - 1 WHERE BookID = 1;
 ```
-![alt text](update_command.PNG)
+![alt text](updateCommand.PNG)
 
+```sql
+DELETE FROM Transactions WHERE TransactionID = 1;
+```
+![alt text](deleting_record.PNG)
+```sql
+SELECT m.FirstName, m.LastName, b.Title, t.TransactionDate, t.ReturnDate
+FROM Members m
+JOIN Transactions t ON m.MemberID = t.MemberID
+JOIN Books b ON t.BookID = b.BookID;
+```
+![alt text](joinAndSubqueries.PNG)
+
+
+```sql
+SELECT * FROM Transactions
+WHERE TransactionDate > SYSDATE - 7;
+```
+![alt text](finding_records_recorded_in_7days.PNG)
+
+```sql
+SELECT b.Title, COUNT(t.TransactionID) AS BorrowCount
+FROM Books b
+JOIN Transactions t ON b.BookID = t.BookID
+GROUP BY b.Title
+ORDER BY BorrowCount DESC
+FETCH FIRST 5 ROWS ONLY;
+```
+![alt text](most_borrowed_books.PNG)
+
+```sql
+SELECT MemberID
+FROM Transactions
+GROUP BY MemberID
+HAVING COUNT(TransactionID) > 3;
+```
+![alt text](borrowed_3_and_above_Books.PNG)
+
+## Conceptual Diagram
+
+![alt text](<conceptual erd.PNG>)
